@@ -5,57 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Charity Landing Page</title>
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Header section with navigation bar -->
+
+  <!-- Navbar -->
   <header>
     <nav class="navbar">
-      <div class="logo">🌊 charity: water</div>
+      <div class="logo">
+        <img src="img/water-can-transparent.png" alt="charity: water logo">
+        <span>charity: water</span>
+      </div>
       <ul class="nav-links">
-        <li><a href="#">TAKE ACTION</a></li>
-        <li><a href="#">ABOUT US</a></li>
-        <li><a href="#">WHY WATER?</a></li>
-        <li><a href="#">SIGN IN</a></li>
+        <li><a href="#take-action">TAKE ACTION</a></li>
+        <li><a href="#about-us">ABOUT US</a></li>
+        <li><a href="#why-water">WHY WATER?</a></li>
+        <li><a href="#sign-in">SIGN IN</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero section with main message and call-to-action button -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="overlay">
-      <h1>See the Change<br>You Help Create</h1>
-      <p>Track every dollar. See every project. Lead change that’s backed by proof—not promises.</p>
+      <div class="text-left">
+        <h1>See the Change<br>You Help Create</h1>
+        <p>Track every dollar. See every project. Lead change that’s backed by proof—not promises.</p>
+      </div>
       <a href="#" class="cta-button">Track Your Impact</a>
     </div>
   </section>
 
-    <!-- Story Section: This tells the story of the nonprofit -->
-    <section class="story">
-        <h2>Our Story</h2>
-        <p>
-         
-    </section>
+  <!-- Pop-Up Form -->
+  <div class="popup-form" id="popupForm">
+    <div class="form-content">
+      <h3>Track Your Donation</h3>
+      <p>Enter your name and email to receive updates about your impact!</p>
+      <input type="text" placeholder="Your Name" id="nameInput">
+      <input type="email" placeholder="Your Email" id="emailInput">
+      <div class="form-buttons">
+        <button onclick="submitForm()">Submit</button>
+        <button onclick="closeForm()" class="close-btn">Cancel</button>
+      </div>
+      <p id="confirmationMessage" class="confirmation-message"></p>
+    </div>
+  </div>
 
-    <!-- Real-World Impact Story Section -->
-    <section class="impact-story">
-        <!-- Section headline -->
-        <h2>Real Impact: Meet Amina</h2>
-        <!-- Container for image and text -->
-        <div class="impact-content">
-            <!-- Impact image -->
-            <img src="impact.jpg"
-            <!-- Impact story text -->
-            <p>
-                Amina used to walk miles every day to collect water for her family. Thanks to your support, her village now has a clean water well. Amina can go to school and her family is healthier and happier.
-            </p>
-        </div>
-    </section>
+  <!-- Themed Page Sections -->
+  <section id="take-action" class="section themed">
+    <div class="container">
+      <h2>Take Action</h2>
+      <p>Every donation helps bring clean water to someone in need. Start a campaign or contribute to one today.</p>
+      <a href="#" class="section-button">Donate Now</a>
+    </div>
+  </section>
 
-    <!-- Call-to-Action Section: This encourages visitors to take action -->
-    <section class="call-to-action">
-        <h2>Make a Difference</h2>
-        <p>Your support can help save lives. Every donation brings us closer to a world with clean water for all.</p>
-        <a href="#" class="donate-button">Donate Now</a>
-    </section>
+  <section id="about-us" class="section themed light">
+    <div class="container">
+      <h2>About Us</h2>
+      <p>charity: water is a nonprofit organization on a mission to bring clean and safe drinking water to people around the world.</p>
+    </div>
+  </section>
+
+  <section id="why-water" class="section themed">
+    <div class="container">
+      <h2>Why Water?</h2>
+      <p>Access to clean water improves health, increases access to education, and empowers communities to break the cycle of poverty.</p>
+      <a href="#" class="section-button">Learn More</a>
+    </div>
+  </section>
+
+  <section id="sign-in" class="section themed light">
+    <div class="container">
+      <h2>Sign In</h2>
+      <p>Join our mission by signing into your account or creating a new one to start tracking your impact.</p>
+      <a href="#" class="section-button">Sign In</a>
+    </div>
+  </section>
+
+  <!-- JavaScript -->
+  <script>
+    const popup = document.getElementById('popupForm');
+    const confirmation = document.getElementById('confirmationMessage');
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+
+    document.querySelector('.cta-button').addEventListener('click', function(e) {
+      e.preventDefault();
+      popup.style.display = 'flex';
+      confirmation.textContent = "";
+      nameInput.value = "";
+      emailInput.value = "";
+    });
+
+    function closeForm() {
+      popup.style.display = 'none';
+    }
+
+    function submitForm() {
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+
+      if (name && email) {
+        confirmation.textContent = "Submitted, we will email you shortly!";
+        confirmation.style.color = 'green';
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 2500);
+      } else {
+        confirmation.textContent = "Please fill out both fields.";
+        confirmation.style.color = 'red';
+      }
+    }
+  </script>
+
 </body>
 </html>
