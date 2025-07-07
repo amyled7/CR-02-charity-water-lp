@@ -16,11 +16,14 @@
         <img src="img/water-can-transparent.png" alt="charity: water logo">
         <span>charity: water</span>
       </div>
-      <ul class="nav-links">
+
+      <div class="menu-toggle" id="menuToggle">&#9776;</div>
+
+      <ul class="nav-links" id="navLinks">
         <li><a href="#take-action">TAKE ACTION</a></li>
         <li><a href="#about-us">ABOUT US</a></li>
         <li><a href="#why-water">WHY WATER?</a></li>
-        <li><a href="#sign-in">SIGN IN</a></li>
+        <li><a href="#sign-in" id="signInBtn">SIGN IN</a></li>
       </ul>
     </nav>
   </header>
@@ -51,7 +54,7 @@
     </div>
   </div>
 
-  <!-- Themed Page Sections -->
+  <!-- Themed Sections -->
   <section id="take-action" class="section themed">
     <div class="container">
       <h2>Take Action</h2>
@@ -71,7 +74,7 @@
     <div class="container">
       <h2>Why Water?</h2>
       <p>Access to clean water improves health, increases access to education, and empowers communities to break the cycle of poverty.</p>
-      <a href="#" class="section-button">Learn More</a>
+      <a href="#about-us" class="section-button">Learn More</a>
     </div>
   </section>
 
@@ -79,7 +82,7 @@
     <div class="container">
       <h2>Sign In</h2>
       <p>Join our mission by signing into your account or creating a new one to start tracking your impact.</p>
-      <a href="#" class="section-button">Sign In</a>
+      <a href="#" class="section-button" onclick="openSignIn()">Sign In</a>
     </div>
   </section>
 
@@ -89,14 +92,30 @@
     const confirmation = document.getElementById('confirmationMessage');
     const nameInput = document.getElementById('nameInput');
     const emailInput = document.getElementById('emailInput');
+    const signInBtn = document.getElementById('signInBtn');
 
     document.querySelector('.cta-button').addEventListener('click', function(e) {
       e.preventDefault();
+      openForm("Track Your Donation", "Enter your name and email to receive updates about your impact!");
+    });
+
+    signInBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openForm("Sign In", "Enter your email to access your dashboard.");
+    });
+
+    function openSignIn() {
+      openForm("Sign In", "Enter your email to access your dashboard.");
+    }
+
+    function openForm(title, message) {
       popup.style.display = 'flex';
       confirmation.textContent = "";
       nameInput.value = "";
       emailInput.value = "";
-    });
+      document.querySelector('.form-content h3').textContent = title;
+      document.querySelector('.form-content p').textContent = message;
+    }
 
     function closeForm() {
       popup.style.display = 'none';
@@ -105,18 +124,23 @@
     function submitForm() {
       const name = nameInput.value.trim();
       const email = emailInput.value.trim();
+      const isSignIn = document.querySelector('.form-content h3').textContent === "Sign In";
 
-      if (name && email) {
+      if ((email && isSignIn) || (name && email)) {
         confirmation.textContent = "Submitted, we will email you shortly!";
         confirmation.style.color = 'green';
         setTimeout(() => {
           popup.style.display = 'none';
         }, 2500);
       } else {
-        confirmation.textContent = "Please fill out both fields.";
+        confirmation.textContent = "Please fill out all required fields.";
         confirmation.style.color = 'red';
       }
     }
+
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('show');
+    });
   </script>
 
 </body>
